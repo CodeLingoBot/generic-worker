@@ -106,9 +106,7 @@ func (c *Config) Validate() error {
 		name       string
 		disallowed interface{}
 	}{
-		{value: c.AccessToken, name: "accessToken", disallowed: ""},
 		{value: c.CachesDir, name: "cachesDir", disallowed: ""},
-		{value: c.ClientID, name: "clientId", disallowed: ""},
 		{value: c.DownloadsDir, name: "downloadsDir", disallowed: ""},
 		{value: c.Ed25519SigningKeyLocation, name: "ed25519SigningKeyLocation", disallowed: ""},
 		{value: c.LiveLogExecutable, name: "livelogExecutable", disallowed: ""},
