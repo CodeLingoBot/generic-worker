@@ -171,10 +171,32 @@ and reports back results to the queue.
         ** REQUIRED ** properties
         =========================
 
+Either:
+  * accessToken AND clientID MUST be specified and proxyURL MUST NOT be specified
+or:
+  * accessToken AND clientID MUST NOT be specified and proxyURL MUST be specified
+
+In either case, rootURL MUST be specified.
+
           accessToken                       Taskcluster access token used by generic worker
                                             to talk to taskcluster queue.
           clientId                          Taskcluster client ID used by generic worker to
                                             talk to taskcluster queue.
+          proxyURL                          If running the worker _behind_ a taskcluster proxy,
+                                            the taskcluster proxy url. Note this is mostly only
+                                            useful for the generic-worker CI itself, but if
+                                            desired, any worker can run behind a taskcluster
+                                            proxy in order to keep taskcluster credentials
+                                            away from the worker. If a proxyURL is specified,
+                                            please note that clientId / accessToken / certificate
+                                            should all be empty, but rootURL is still required.
+          rootURL                           The root URL of the taskcluster deployment to which
+                                            clientId and accessToken grant access. For example,
+                                            'https://taskcluster.net'. Individual services can
+                                            override this setting - see the *BaseURL settings.
+
+The following properties are always required:
+
           ed25519SigningKeyLocation         The ed25519 signing key for signing artifacts with.
           livelogSecret                     This should match the secret used by the
                                             stateless dns server; see
@@ -185,10 +207,6 @@ and reports back results to the queue.
                                             https://github.com/taskcluster/livelog and
                                             https://github.com/taskcluster/stateless-dns-server
                                             Also used by chain of trust.
-          rootURL                           The root URL of the taskcluster deployment to which
-                                            clientId and accessToken grant access. For example,
-                                            'https://taskcluster.net'. Individual services can
-                                            override this setting - see the *BaseURL settings.
           workerId                          A name to uniquely identify your worker.
           workerType                        This should match a worker_type managed by the
                                             provisioner you have specified.
@@ -567,6 +585,7 @@ func loadConfig(filename string, queryAWSUserData bool, queryGCPMetaData bool) (
 			NumberOfTasksToRun:             0,
 			ProvisionerBaseURL:             "",
 			ProvisionerID:                  "test-provisioner",
+			ProxyURL:                       "",
 			PurgeCacheBaseURL:              "",
 			QueueBaseURL:                   "",
 			RequiredDiskSpaceMegabytes:     10240,

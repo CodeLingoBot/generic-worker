@@ -48,6 +48,7 @@ type (
 		PrivateIP                      net.IP                 `json:"privateIP"`
 		ProvisionerBaseURL             string                 `json:"provisionerBaseURL"`
 		ProvisionerID                  string                 `json:"provisionerId"`
+		ProxyURL                       string                 `json:"proxyURL"`
 		PublicIP                       net.IP                 `json:"publicIP"`
 		PurgeCacheBaseURL              string                 `json:"purgeCacheBaseURL"`
 		QueueBaseURL                   string                 `json:"queueBaseURL"`
