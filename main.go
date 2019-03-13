@@ -171,12 +171,12 @@ and reports back results to the queue.
         ** REQUIRED ** properties
         =========================
 
-Either:
-  * accessToken AND clientID MUST be specified and proxyURL MUST NOT be specified
-or:
-  * accessToken AND clientID MUST NOT be specified and proxyURL MUST be specified
+        Either:
+          * accessToken AND clientID MUST be specified and proxyURL MUST NOT be specified
+        or:
+          * accessToken AND clientID MUST NOT be specified and proxyURL MUST be specified
 
-In either case, rootURL MUST be specified.
+        In either case, rootURL MUST be specified.
 
           accessToken                       Taskcluster access token used by generic worker
                                             to talk to taskcluster queue.
@@ -195,7 +195,7 @@ In either case, rootURL MUST be specified.
                                             'https://taskcluster.net'. Individual services can
                                             override this setting - see the *BaseURL settings.
 
-The following properties are always required:
+        The following properties are always required:
 
           ed25519SigningKeyLocation         The ed25519 signing key for signing artifacts with.
           livelogSecret                     This should match the secret used by the
@@ -367,11 +367,11 @@ The following properties are always required:
                                             it was set up (for example what has been installed on
                                             the machine).
 
-    If an optional config setting is not provided in the json configuration file, the
-    default will be taken (defaults documented above).
+        If an optional config setting is not provided in the json configuration file, the
+        default will be taken (defaults documented above).
 
-    If no value can be determined for a required config setting, the generic-worker will
-    exit with a failure message.
+        If no value can be determined for a required config setting, the generic-worker will
+        exit with a failure message.
 
   Exit Codes:
 
