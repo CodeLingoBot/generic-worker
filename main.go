@@ -168,18 +168,31 @@ and reports back results to the queue.
     The configuration file for the generic worker is specified with -c|--config CONFIG-FILE
     as described above. Its format is a json dictionary of name/value pairs.
 
-        ** REQUIRED ** properties
-        =========================
+        AUTH properties
+        ===============
 
-        Either:
-          * accessToken AND clientID MUST be specified and proxyURL MUST NOT be specified
-        or:
-          * accessToken AND clientID MUST NOT be specified and proxyURL MUST be specified
+        There are three options for configuring taskcluster authentication:
 
-        In either case, rootURL MUST be specified.
+        1) Permanent taskcluster credentials
+
+          * accessToken, clientId, rootURL should be specified
+          * certificate, proxyURL should be empty strings or unspecified
+
+        2) Temporary taskcluster credentials
+
+          * accessToken, clientId, certificate, rootURL should be specified
+          * proxyURL should be empty strings or unspecified
+
+        3) Authentication via a proxy
+
+          * proxyURL, rootURL should be specified
+          * accessToken, clientId, certificate should be empty strings or unspecified
+
 
           accessToken                       Taskcluster access token used by generic worker
                                             to talk to taskcluster queue.
+          certificate                       Taskcluster certificate, when using temporary
+                                            credentials only.
           clientId                          Taskcluster client ID used by generic worker to
                                             talk to taskcluster queue.
           proxyURL                          If running the worker _behind_ a taskcluster proxy,
@@ -195,7 +208,8 @@ and reports back results to the queue.
                                             'https://taskcluster.net'. Individual services can
                                             override this setting - see the *BaseURL settings.
 
-        The following properties are always required:
+        ** REQUIRED ** properties
+        =========================
 
           ed25519SigningKeyLocation         The ed25519 signing key for signing artifacts with.
           livelogSecret                     This should match the secret used by the
@@ -225,8 +239,6 @@ and reports back results to the queue.
                                             not exist. This may be a relative path to the
                                             current directory, or an absolute path.
                                             [default: caches]
-          certificate                       Taskcluster certificate, when using temporary
-                                            credentials only.
           checkForNewDeploymentEverySecs    The number of seconds between consecutive calls
                                             to the provisioner, to check if there has been a
                                             new deployment of the current worker type. If a
